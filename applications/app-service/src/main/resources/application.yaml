@@ -29,3 +29,8 @@ management:
         enabled: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+services:
+  user-ms:
+    url: http://localhost:8081
+    endpoints:
+      find-by-email: /api/v1/login

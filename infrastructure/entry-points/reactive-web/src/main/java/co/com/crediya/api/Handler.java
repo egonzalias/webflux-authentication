@@ -1,9 +1,9 @@
 package co.com.crediya.api;
 
 
-import co.com.crediya.api.dto.UserDTO;
+import co.com.crediya.api.dto.AuthUserDTO;
+import co.com.crediya.api.mapper.AuthUserDTOMapper;
 import co.com.crediya.model.exception.ValidationException;
-import co.com.crediya.api.mapper.UserDTOMapper;
 import co.com.crediya.usecase.user.UserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -24,25 +24,21 @@ import java.util.stream.Collectors;
 public class Handler {
 
     private final UserUseCase userUseCase;
-    private final UserDTOMapper userDTOMapper;
+    private final AuthUserDTOMapper authUserDTOMapper;
     private final Validator validator;
 
-    public Mono<ServerResponse> listenGETOtherUseCase(ServerRequest serverRequest) {
-        return ServerResponse.ok().bodyValue(userUseCase.test());
-    }
-
-    public Mono<ServerResponse> registerUser(ServerRequest serverRequest) {
+    public Mono<ServerResponse> loginUser(ServerRequest serverRequest) {
         return serverRequest
-                .bodyToMono(UserDTO.class)
+                .bodyToMono(AuthUserDTO.class)
                 .doOnNext(this::validate)
-                .map(userDTOMapper::toModel)
-                .flatMap(userUseCase::registerUser)
+                .map(authUserDTOMapper::toModel)
+                .flatMap(userUseCase::authenticateUser)
                 .then(ServerResponse.status(HttpStatus.CREATED).build());
     }
 
-    private void validate(UserDTO userDTO) {
-        BindingResult errors = new BeanPropertyBindingResult(userDTO, UserDTO.class.getName());
-        validator.validate(userDTO, errors);
+    private void validate(AuthUserDTO authUserDTO) {
+        BindingResult errors = new BeanPropertyBindingResult(authUserDTO, AuthUserDTO.class.getName());
+        validator.validate(authUserDTO, errors);
         if (errors.hasErrors()) {
             List<String> messages = errors.getAllErrors()
                     .stream()
