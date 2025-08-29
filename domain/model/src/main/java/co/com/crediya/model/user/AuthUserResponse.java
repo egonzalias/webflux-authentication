@@ -1,17 +1,18 @@
 package co.com.crediya.model.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Builder;
+import lombok.*;
+
+import java.time.Instant;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class User {
+public class AuthUserResponse {
+    private String jwtToken;
+    private Instant expiresAt;
     private String email;
     private String password;
+    private String role;
 }

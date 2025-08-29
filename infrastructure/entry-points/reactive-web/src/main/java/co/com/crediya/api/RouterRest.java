@@ -13,6 +13,6 @@ public class RouterRest {
     @Bean
 
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
-        return route(POST("/api/v1/login"), handler::loginUser);
+        return route(POST("/api/v1/authenticate"), handler::authenticate);
     }
 }

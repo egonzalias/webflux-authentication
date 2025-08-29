@@ -1,5 +1,6 @@
 package co.com.crediya.api.dto;
 
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -12,10 +13,10 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class AuthUserDTO {
-    @NotBlank(message = "El correo electrónico es obligatorio")
-    @Email(message = "El correo electrónico no es válido", regexp = ".+@.+\\..+")
+public class AuthUserResponseDTO {
+    private String jwtToken;
+    private Instant expiresAt;
     private String email;
-    @NotBlank(message = "La clave del usuario es obligatoria")
     private String password;
+    private String role;
 }

@@ -7,9 +7,6 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 
 // TODO: This file is just an example, you should delete or modify it
-public interface UserReactiveRepository extends ReactiveCrudRepository<UserEntity, String>, ReactiveQueryByExampleExecutor<UserEntity> {
-    @Query("SELECT * from 'users'")
-    String getTesting();
-    @Query("SELECT EXISTS (SELECT 1 FROM users WHERE email = :email)")
-    Mono<Boolean> existsByEmail(String email);
+public interface AuthUserReactiveRepository extends ReactiveCrudRepository<UserEntity, String>, ReactiveQueryByExampleExecutor<UserEntity> {
+
 }

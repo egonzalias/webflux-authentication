@@ -1,24 +1,10 @@
 package co.com.crediya.usecase.user;
 
-import co.com.crediya.model.exception.ValidationException;
-import co.com.crediya.model.user.User;
-import co.com.crediya.model.user.gateways.PasswordService;
-import co.com.crediya.model.user.gateways.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UserUseCaseTest {
+public class AuthAuthUserUseCaseTest {
 
     /*@Mock
     private UserRepository repository;

@@ -4,10 +4,9 @@ package co.com.crediya.api;
 import co.com.crediya.api.dto.AuthUserDTO;
 import co.com.crediya.api.mapper.AuthUserDTOMapper;
 import co.com.crediya.model.exception.ValidationException;
-import co.com.crediya.usecase.user.UserUseCase;
+import co.com.crediya.usecase.user.AuthUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
@@ -23,17 +22,18 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class Handler {
 
-    private final UserUseCase userUseCase;
+    private final AuthUserUseCase authUserUseCase;
     private final AuthUserDTOMapper authUserDTOMapper;
     private final Validator validator;
 
-    public Mono<ServerResponse> loginUser(ServerRequest serverRequest) {
+    public Mono<ServerResponse> authenticate(ServerRequest serverRequest) {
         return serverRequest
                 .bodyToMono(AuthUserDTO.class)
                 .doOnNext(this::validate)
                 .map(authUserDTOMapper::toModel)
-                .flatMap(userUseCase::authenticateUser)
-                .then(ServerResponse.status(HttpStatus.CREATED).build());
+                .flatMap(authUserUseCase::authenticateUser)
+                .map(authUserDTOMapper::toResponse)
+                .flatMap(response -> ServerResponse.ok().bodyValue(response));
     }
 
     private void validate(AuthUserDTO authUserDTO) {

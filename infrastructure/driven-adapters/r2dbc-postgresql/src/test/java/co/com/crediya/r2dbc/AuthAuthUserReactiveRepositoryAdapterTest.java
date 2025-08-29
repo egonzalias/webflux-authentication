@@ -1,6 +1,6 @@
 package co.com.crediya.r2dbc;
 
-import co.com.crediya.r2dbc.adapter.UserReactiveRepository;
+import co.com.crediya.r2dbc.adapter.AuthUserReactiveRepository;
 import co.com.crediya.r2dbc.adapter.impl.UserReactiveRepositoryAdapter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,14 +17,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class UserReactiveRepositoryAdapterTest {
+class AuthAuthUserReactiveRepositoryAdapterTest {
     // TODO: change four you own tests
 
     @InjectMocks
     UserReactiveRepositoryAdapter repositoryAdapter;
 
     @Mock
-    UserReactiveRepository repository;
+    AuthUserReactiveRepository repository;
 
     @Mock
     ObjectMapper mapper;

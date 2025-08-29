@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
 spring:
   application:
     name: "users"
@@ -31,6 +31,6 @@ cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
 services:
   user-ms:
-    url: http://localhost:8081
+    url: http://localhost:8080
     endpoints:
       find-by-email: /api/v1/login
